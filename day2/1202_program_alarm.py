@@ -3,9 +3,9 @@ def get_list(fpath):
         intcode = [int(num) for num in fp.read().split(",") if num != "\n"]
     return intcode
 
-def init(intcode):
-    intcode[1] = 12
-    intcode[2] = 2
+def init(intcode, noun, verb):
+    intcode[1] = noun
+    intcode[2] = verb
     return intcode
 
 def parse_ops(intcode):
@@ -20,7 +20,15 @@ def parse_ops(intcode):
         else:
             print("something went wrong. op is", intcode[idx])
 
+def run():
+    for noun in range(1, 100):
+        for verb in range(1, 100):
+            intcode = get_list("input.txt")
+            intcode = init(intcode, noun, verb)
+            if parse_ops(intcode) == 19690720:
+                return 100 * noun + verb
+            else:
+                print("not it", noun, verb)
+
 if __name__ == "__main__":
-    intcode = get_list("input.txt")
-    intcode = init(intcode)
-    print(parse_ops(intcode))
+    print(run())
