@@ -7,8 +7,9 @@ def get_wire_circuitry(fpath):
 
 # traverse wire circuity, appending coordinate tuples to a list which gets returned as a set
 def parse_wires(wc):
-    coords = []
+    coords = dict()
     curr = (0, 0)
+    curr_step = 0
     for wire in wc:
         for _ in range(int(wire[1:])):
             if wire[0] == "D":
@@ -21,8 +22,10 @@ def parse_wires(wc):
                 curr = (curr[0], curr[1] + 1)
             else:
                 print("something is wrong")
-            coords.append(curr)
-    return set(coords)
+            curr_step += 1
+            if curr not in coords.keys():
+                coords[curr] = curr_step
+    return coords
 
 if __name__ == "__main__":
     
@@ -32,8 +35,12 @@ if __name__ == "__main__":
     coords2 = parse_wires(w2)
 
     # get the set intersection of all the intersection coordinates
-    set_int = list(coords1.intersection(coords2))
+    set_int = list(set(coords1.keys()).intersection(set(coords2.keys())))
 
-    # compute manhattan distances from the origin and find min (cloest intersection)
+    # PART 1: compute manhattan distances from the origin and find min (cloest intersection)
     manhattan_dist = [abs(coord[0]) + abs(coord[1]) for coord in set_int]
     print(min(manhattan_dist))
+
+    # PART 2: compute min combined number of steps out of all intersections
+    step_sums = [coords1[coord] + coords2[coord] for coord in set_int]
+    print(min(step_sums))
