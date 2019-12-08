@@ -34,12 +34,6 @@ if __name__ == "__main__":
     # get the set intersection of all the intersection coordinates
     set_int = list(coords1.intersection(coords2))
 
-    # compute manhattan distances from the origin
-    manhattan_dist = []
-    for coord in set_int:
-        manhattan_dist.append(abs(coord[0]) + abs(coord[1]))
-
-    # closest intersection: print(set_int[manhattan_dist.index(min(manhattan_dist))])
+    # compute manhattan distances from the origin and find min (cloest intersection)
+    manhattan_dist = [abs(coord[0]) + abs(coord[1]) for coord in set_int]
     print(min(manhattan_dist))
-    
-
