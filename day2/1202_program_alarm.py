@@ -28,7 +28,15 @@ def run():
             if parse_ops(intcode) == 19690720:
                 return 100 * noun + verb
             else:
-                print("not it", noun, verb)
+                #print("not it", noun, verb)
+                pass
 
 if __name__ == "__main__":
+
+    # PART 1: value at position 0 after program halts
+    intcode = get_list("input.txt")
+    intcode = init(intcode, 12, 2)
+    print(parse_ops(intcode))
+
+    # PART 2: input noun and verb that cause the program to produce output 19690720
     print(run())
