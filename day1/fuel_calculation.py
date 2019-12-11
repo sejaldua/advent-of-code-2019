@@ -4,22 +4,12 @@ def quick_maths1(fuel):
 
 # recursive function for puzzle 2
 def quick_maths2(fuel):
-    if fuel < 9:
-        return 0
-    return (fuel // 3) - 2 + quick_maths2((fuel // 3) - 2)
+    f = quick_maths1(fuel)
+    return 0 if f <= 0 else f + quick_maths2(f)
 
-# compute fuel needed for each input, then return the sum of these fuel requirements
+# aggregate fuel requirements for each module based on input mass and fuel equation
 def calculate_fuel(fpath, puzzle_func):
-    total_fuel = 0
-    with open(fpath, "r") as fp:
-        num = int(fp.readline())
-        while num:
-            total_fuel += puzzle_func(num)
-            try:
-                num = int(fp.readline())
-            except:
-                break
-    return total_fuel
+    return sum(puzzle_func(int(mass)) for mass in open(fpath, 'r'))
 
 if __name__ == "__main__":
     print(calculate_fuel("input.txt", quick_maths1))
