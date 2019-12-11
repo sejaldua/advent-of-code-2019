@@ -67,6 +67,6 @@ if __name__ == "__main__":
     intcode = get_list("input.txt")
     print(parse_ops(1, intcode))
 
-    # PART 2: diagnostic code for systme ID 2 (with 4 new opcodes)
+    # PART 2: diagnostic code for systme ID 5 (with 4 new opcodes)
     intcode = get_list("input.txt")
     print(parse_ops(5, intcode))
