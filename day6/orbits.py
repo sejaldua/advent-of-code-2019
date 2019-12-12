@@ -17,8 +17,28 @@ def get_num_orbits(orbit_dict, planet):
         return 0
     return 1 + get_num_orbits(orbit_dict, orbit_dict[planet])
 
+# function to get a path of orbits from specified outer planet to innermost planet
+def get_orbital_path(orbit_dict, start_planet):
+    planet = start_planet
+    path = []
+    while planet in orbit_dict.keys():
+        path.append(planet)
+        planet = orbit_dict[planet]
+    return path
+        
+
 if __name__ == "__main__":
+
+    # parse input file and make a dictionary of direct orbit relationships
     orbits = get_orbits('input.txt')
     orbit_dict = parse_orbits(orbits)
+
+    # PART 1: get total number of direct and indirect orbits by summing full orbital paths for each planet
     print(sum(get_num_orbits(orbit_dict, planet) for planet in orbit_dict.keys()))
     
+    # PART 2: finding the number of orbital transfers needed for YOU to orbit the same planet as SANta
+    # add orbital distance from YOU to closest shared orbit planet and from SAN to closest shared orbit planet
+    you_path = get_orbital_path(orbit_dict, 'YOU')
+    santa_path = get_orbital_path(orbit_dict, 'SAN')
+    shared = [p for p in you_path if p in santa_path]
+    print(you_path.index(shared[0]) + santa_path.index(shared[0]) - 2)
