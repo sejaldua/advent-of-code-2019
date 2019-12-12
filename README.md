@@ -1,7 +1,7 @@
 # advent-of-code-2019
 'tis the season to nerd out
 
-goals:
+### GOALS:
 * elegant code
 * list comprehensions
 * zero / minimal import libraries
